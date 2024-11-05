@@ -20,5 +20,5 @@ while True:
 numbers, squares = get_square_list(a, b)
 
 print(f"Целые числа в диапозоне [{a};{b}]: {numbers}")
-print(f"Квадраты целых чисел: {squares}")
+print(f"Квадраты целых чисел входящих в диапозон: {squares}")
 
