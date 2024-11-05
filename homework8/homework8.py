@@ -11,17 +11,27 @@ ticket = [
 
 def get_ticket():
     user_ticket = []
-    print("Введите по одному числу из каждой строки лотерейного билета:")
+    user_rows = set()
+    print("Введите 5 чисел (по одному из каждой строки лотерейного билета):")
 
-    for i, row in enumerate(ticket):
+    for _ in range(5):
         while True:
             try:
-                num = int(input(f"Введите число из строки {i + 1} {row}: "))
-                if num in row:
-                    user_ticket.append(num)
-                    break
+                num = int(input(f"Введите число: "))
+                row_index = None
+                for i, row in enumerate(ticket):
+                    if num in row:
+                        row_index = i
+                        break
+
+                if row_index is None:
+                    print("Ошибка: число не найдено в билетах. Попробуйте ещё раз.")
+                elif row_index in user_rows:
+                    print("Ошибка: выбрано более одного числа из одной строки. Попробуйте ещё раз.")
                 else:
-                    print("Ошибка: число не найдено в строке. Попробуйте еще раз.")
+                    user_ticket.append(num)
+                    user_rows.add(row_index)
+                    break
             except ValueError:
                 print("Ошибка: введите корректное число.")
 
@@ -39,6 +49,8 @@ random_ticket = generate_ticket()
 print(f"\nВаш лотерейный билет: {user_ticket}")
 print(f"Случайно сгенерированный билет: {random_ticket}")
 
+
 matches = set(user_ticket) & set(random_ticket)
+result = ', '.join(str(item) for item in matches)
 print(f"Количество совпадений: {len(matches)}")
-print(f"Совпадения: {matches}")
+print(f"Совпадения: {result}")
